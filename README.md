@@ -1,5 +1,12 @@
 # 笔记
+## npm指令
 1、启动项目npm run serve
+2、安装less插件npm i less-loader@7(@符号+版本可安装选择版本，不写默认安装最新，若版本冲突则)
+3、查看webpack/less-loader等版本号 npm view webpack versions
+4、查看安装的指定插件版本号npm list less-loader(less-loader为指定插件名)
+5、若想卸载插件更新版本npm uninstall less-loader
+6、安装nanoid(小型uuid)npm i nanoid
+
 
 ## ref属性
 1、被用来给元素或子组件注册引用信息（id的替代者）
@@ -47,3 +54,28 @@
             (2)、局部混入：mixins:['xxx']
     注意：
         在混入的配置中，data数据中，原来就有的以原来的为主，而像函数之类的则是都会运行
+
+## 插件
+    功能：用于增强Vue
+    本质：包含install方法的一个对象，install的第一个参数是Vue,第二个以后的参数是插件使用者传递的数据。
+    定义插件：
+        对象.install=function(Vue,options){
+            //1.添加全局过滤器
+            Vue.filter('',function(){})
+            //2.添加全局指令
+            Vue.directive('',{
+                bind(){},inserted(){},update(){}
+                }
+            )
+            //3.配置全局混入
+            Vue.minin({...})
+            //4.添加实例方法
+            Vue.prototype.$myMethod=function(){}
+            Vue.prototype.$myProperty=xxxx
+        }
+    引入插件：对应export方式引入
+    使用插件：Vue.use()
+    
+## scoped样式
+    作用：让样式在局部生效，防止冲突。
+    写法：<style scoped>
