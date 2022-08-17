@@ -20,12 +20,12 @@
         props:['todo','changeTodo','deleteTodo'],
         methods:{
           handleCheck(id){
-            console.log(id)
+            // console.log(id)
             // 通知App勾选
             this.changeTodo(id)
           },
           handleDelete(id){
-            console.log(id)
+            // console.log(id)
             // 通知App删除
             if(confirm('是否删除当前任务'))
             this.deleteTodo(id)

@@ -2,7 +2,7 @@
  * @Author: kieranli 1010950547@qq.com
  * @Date: 2022-08-15 09:14:51
  * @LastEditors: kieranli 1010950547@qq.com
- * @LastEditTime: 2022-08-17 13:54:34
+ * @LastEditTime: 2022-08-17 17:02:38
  * @FilePath: \vue_test1\src\App.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -12,7 +12,9 @@
       <div class="todo-wrap">
         <MyHeader :addTodo="addTodo"></MyHeader>
         <MyList :todos="todos" :changeTodo="changeTodo" :deleteTodo="deleteTodo"></MyList>
-        <MyFooter :todos="todos"></MyFooter>
+        <!-- 监视属性完成已完成事务监控 -->
+        <!-- <MyFooter :todos="todos" :haveTodo="haveTodo" :checkAll="checkAll"></MyFooter> -->
+        <MyFooter :todos="todos" :checkAll="checkAll"></MyFooter>
       </div>
     </div>
   </div>
@@ -32,6 +34,7 @@ export default {
         { id: "002", title: "喝酒", done: false },
         { id: "003", title: "烫头", done: true },
       ],
+      haveTodo:0
     };
   },
   components: {
@@ -56,8 +59,27 @@ export default {
       this.todos = this.todos.filter((todo)=>{
         return todo.id !== id
       })
+    },
+    // 全选
+    checkAll(){
+      this.todos.forEach(todo => {
+        todo.done=!todo.done
+      });
     }
-  }
+  },
+  // 监视属性实现监控已完成事件
+  // watch:{
+  //   todos:{
+  //     deep:true,
+  //     immediate:true,
+  //     handler(){
+  //       let newTodos=this.todos.filter(todo => {
+  //         return todo.done === true
+  //       })
+  //       return this.haveTodo=newTodos.length
+  //     }
+  //   }
+  // }
 };
 </script>
 
