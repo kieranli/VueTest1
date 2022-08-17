@@ -1,3 +1,11 @@
+<!--
+ * @Author: kieranli 1010950547@qq.com
+ * @Date: 2022-08-15 09:14:51
+ * @LastEditors: kieranli 1010950547@qq.com
+ * @LastEditTime: 2022-08-17 14:32:11
+ * @FilePath: \vue_test1\README.md
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
 # 笔记
 ## npm指令
 1、启动项目npm run serve
@@ -6,6 +14,12 @@
 4、查看安装的指定插件版本号npm list less-loader(less-loader为指定插件名)
 5、若想卸载插件更新版本npm uninstall less-loader
 6、安装nanoid(小型uuid)npm i nanoid
+7、项目文件夹下npm list vue查看vue版本
+8、npm run build项目打包
+9、npm config set registry https://registry.npm.taobao.org设置npm镜像为淘宝镜像
+10、npm install -g cnpm --registry=https://registry.npm.taobao.org通过npm安装使用cnpm为淘宝镜像
+10、npm config get registry查看npm镜像配置，cnpm同理
+
 
 
 ## ref属性
