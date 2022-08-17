@@ -2,7 +2,7 @@
  * @Author: kieranli 1010950547@qq.com
  * @Date: 2022-08-15 15:04:27
  * @LastEditors: kieranli 1010950547@qq.com
- * @LastEditTime: 2022-08-17 17:02:26
+ * @LastEditTime: 2022-08-17 18:24:24
  * @FilePath: \vue_test1\src\components\MyFooter.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -24,11 +24,21 @@ export default {
   // 计算属性实现已完成监控
   computed:{
     haveTodo(){
-        let newTodos=this.todos.filter(todo => {
-          return todo.done === true
-        })
-        console.log(newTodos)
-        return newTodos.length
+        // filter完成
+        // let newTodos=this.todos.filter(todo => {
+        //   return todo.done === true
+        // })
+        // console.log(newTodos)
+        // return newTodos.length
+
+        // reduce完成
+        // return this.todos.reduce((pre,todo)=>{
+        //   console.log('@',pre,todo)
+        //   return pre + (todo.done ? 1:0)
+        // },0)
+
+        // reduce完成，简写
+        return this.todos.reduce((pre,todo)=>pre + (todo.done ? 1:0),0)
     }
   },
   methods:{
