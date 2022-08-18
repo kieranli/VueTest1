@@ -1,0 +1,58 @@
+<!--
+ * @Author: kieranli 1010950547@qq.com
+ * @Date: 2022-08-18 13:23:23
+ * @LastEditors: kieranli 1010950547@qq.com
+ * @LastEditTime: 2022-08-18 16:14:16
+ * @FilePath: \vue_test1\08_浏览器本地储存\sessionStorage.html
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sessionStorage</title>
+</head>
+<body>
+    <!-- 本地缓存，浏览器控制台Application可查看 -->
+    <!-- 存储格式：key,value ,value必须是字符串，非字符串需要借助方法解析，否则浏览器会自当toString-->
+    <div>
+        <button onclick="saveData()">保存数据</button>
+        <button onclick="readData()">读取数据</button>
+        <button onclick="deleteData()">删除数据</button>
+        <button onclick="deleteAllData()">清空数据</button>
+    </div>
+    <script type="text/javaScript">
+        let p = {name:'张三',age:18}
+
+        function saveData() {
+            // window.sessionStorage.setItem('school','文理')
+            // sessionStorage为window属性,可省略window
+            sessionStorage.setItem('school','文理')
+            sessionStorage.setItem('address','重庆')
+            sessionStorage.setItem('msg','垃圾')
+            sessionStorage.setItem('student',p)//[object object] 因为浏览器对对象使用了toString方法
+            sessionStorage.setItem('student2',JSON.stringify(p))//对象转字符串
+
+        }
+        function readData() {
+            const x = sessionStorage.getItem('school')
+            const y = sessionStorage.getItem('address')
+            const z = sessionStorage.getItem('msg')
+            const str = sessionStorage.getItem('student2')
+            const obj = JSON.parse(str)
+            //文理 重庆 垃圾 {"name":"张三","age":18} {name:'张三'，age:18} null 前一个为字符串后一个才是对象
+            console.log(x,y,z,str,obj,qwe)
+        }
+        function deleteData() {
+            sessionStorage.removeItem('school')
+            sessionStorage.removeItem('address')
+            sessionStorage.removeItem('msg')
+        }
+        function deleteAllData() {
+            sessionStorage.clear()
+        }
+    </script>
+</body>
+</html>

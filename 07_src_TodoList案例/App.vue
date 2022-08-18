@@ -2,7 +2,7 @@
  * @Author: kieranli 1010950547@qq.com
  * @Date: 2022-08-15 09:14:51
  * @LastEditors: kieranli 1010950547@qq.com
- * @LastEditTime: 2022-08-18 16:34:14
+ * @LastEditTime: 2022-08-18 11:23:44
  * @FilePath: \vue_test1\src\App.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -29,8 +29,11 @@ export default {
   name: "App",
   data() {
     return {
-      //浏览器缓存中todos的值为子字符串，需要转为数组，初始化时，没有todos，会返回null值导致报错，所以需要加  || []
-      todos: JSON.parse(localStorage.getItem('todos')) || [], 
+      todos: [
+        { id: "001", title: "抽烟", done: true },
+        { id: "002", title: "喝酒", done: false },
+        { id: "003", title: "烫头", done: true },
+      ],
       // doneAllTodo:0
     };
   },
@@ -71,27 +74,19 @@ export default {
       })
     }
   },
-  watch:{
-    // 监视属性实现监控已完成事件
-    // todos:{
-    //   deep:true,
-    //   immediate:true,
-    //   handler(){
-    //     let newTodos=this.todos.filter(todo => {
-    //       return todo.done === true
-    //     })
-    //     return this.doneAllTodo=newTodos.length
-    //   }
-    // }
-
-    // 利用浏览器缓存存储数据
-    todos:{
-      deep:true,
-      handler(){
-        localStorage.setItem('todos',JSON.stringify(this.todos))
-      }
-    }
-  }
+  // 监视属性实现监控已完成事件
+  // watch:{
+  //   todos:{
+  //     deep:true,
+  //     immediate:true,
+  //     handler(){
+  //       let newTodos=this.todos.filter(todo => {
+  //         return todo.done === true
+  //       })
+  //       return this.doneAllTodo=newTodos.length
+  //     }
+  //   }
+  // }
 };
 </script>
 
