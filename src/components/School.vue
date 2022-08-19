@@ -2,31 +2,32 @@
  * @Author: kieranli 1010950547@qq.com
  * @Date: 2022-08-19 09:22:09
  * @LastEditors: kieranli 1010950547@qq.com
- * @LastEditTime: 2022-08-19 17:04:47
- * @FilePath: \vue_test1\src\App.vue
+ * @LastEditTime: 2022-08-19 16:59:32
+ * @FilePath: \vue_test1\src\components\School.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
 <template>
   <div class="demo">
-    <School/>
-    <Student/>
+    <h4>学校名称:{{ name }}</h4>
+    <h4>学校地址:{{ address }}</h4>
   </div>
 </template>
-
 <script>
-  import School from "./components/School"
-  import Student from "./components/Student"
-  export default {
-    name:'App',
-    components: {
-      School,
-      Student
+export default {
+  data() {
+    return {
+      name: "文理学院",
+      address: "重庆",
     }
-  };
+  }
+};
 </script>
 
-<style scoped>
-.demo{
-  background-color:gray
+<style lang="less" scoped>
+.demo {
+  background-color: rgb(188, 236, 184);
+  h4{
+    color:red
+  }
 }
 </style>

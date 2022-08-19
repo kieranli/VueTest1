@@ -2,7 +2,7 @@
  * @Author: kieranli 1010950547@qq.com
  * @Date: 2022-08-15 15:04:27
  * @LastEditors: kieranli 1010950547@qq.com
- * @LastEditTime: 2022-08-18 11:18:28
+ * @LastEditTime: 2022-08-19 16:45:34
  * @FilePath: \vue_test1\src\components\MyFooter.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -22,8 +22,7 @@
 
 export default {
   name: "MyFooter",
-  // props:['todos','doneAll','checkAll'],
-  props:['todos','checkAllTodo','clearDoneTodo'],
+  props:['todos'],
   computed:{
     // 全部
     total(){
@@ -54,8 +53,8 @@ export default {
         return this.total === this.doneAll && this.total>0
       },
       set(value){
-        // console.log(value)
-        this.checkAllTodo(value)
+        // 调用自定义事件同步选择结果
+        this.$emit('checkAllTodo',value)
       }
     }
   },
@@ -67,8 +66,8 @@ export default {
     //   this.checkAllTodo(e.target.checked)
     // }
     clearDone(){
-      // 通知App清除已完成任务
-      this.clearDoneTodo()
+      // 调用自定义事件清除
+      this.$emit('clearDoneTodo')
     }
   }
 };

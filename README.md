@@ -2,7 +2,7 @@
  * @Author: kieranli 1010950547@qq.com
  * @Date: 2022-08-15 09:14:51
  * @LastEditors: kieranli 1010950547@qq.com
- * @LastEditTime: 2022-08-18 16:14:42
+ * @LastEditTime: 2022-08-19 11:55:56
  * @FilePath: \vue_test1\README.md
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -125,4 +125,31 @@
         2.localStorage存储的内容，需要手动清除才会消失。（利用API或者清除浏览器缓存）
         3.xxxxStorage.getItem(xxx),如果xxx对应的value获取不到，那么getItem的返回值是null,而不是undefind
         4.JSON.parse(null)的结果依然是null
+
+## 组件自定义事件
+    1.一种组件间通信的方式。适用于：子组件=>父组件
+    2.使用场景：A是父组件，B是子组件，B想给A传数据，那么就要在A中给B绑定自定义事件（事件的回调在A中）。
+    3.绑定自定义事件：
+        1).第一种方式，在父组件中：
+            <demo @zidingyi="test"/> 或 <demo v-on:zidingyi="test"/>
+        2).第二种方式，在父组件中：
+            <demo ref="demo"/>
+            ......
+            methods:{
+                test(){}
+            },
+            mounted(){
+                this.$refs.xxx.$on('zidingyi',this.test)
+            }
+        3).若想让自定义事件智能触发一次，可以使用once修饰符，或$once方法
+    4.触发自定义事件：this.$emit('zidingyi',params)
+    5.解绑自定义事件：
+        1).单个解绑：this.$off('xxx')
+        2).多个解绑：this.$off(['xxx','yyy'])
+        3).全部解绑：this.$off()
+    6.组件上也可以绑定原生DOM事件，需要使用native修饰符。
+    7.注意：
+        通过this.$refs.xxx.$on('zidingyi',回调)绑定自定义事件时，回调要么配置在methods中，要么写成箭头函数，否则this指向为绑定ref的子组件实例对象
+
+## 
 

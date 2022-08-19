@@ -1,3 +1,11 @@
+<!--
+ * @Author: kieranli 1010950547@qq.com
+ * @Date: 2022-08-19 16:13:47
+ * @LastEditors: kieranli 1010950547@qq.com
+ * @LastEditTime: 2022-08-19 16:20:28
+ * @FilePath: \vue_test1\src\components\MyHeader.vue
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
 <template>
   <div class="todo-header">
     <input type="text" placeholder="请输入你的任务名称，按回车键确认" v-model="title" @keyup.enter="add"/>
@@ -14,7 +22,7 @@ export default {
       title:''
     }
   },
-  props:['addTodo'],
+  // props:['addTodo'],
   methods:{
     //事件获取value值
     // add(event){
@@ -27,8 +35,13 @@ export default {
       if(!this.title.trim()) return
       // 包装一个todoObj
       const todoObj={id:nanoid(),title:this.title.trim(),done:false}
+
       // 通知App组件调用addTodo添加todoObj
-      this.addTodo(todoObj)
+      // this.addTodo(todoObj)
+
+      // 调用自定义事件传值
+      this.$emit('addTodo',todoObj)
+      
       //清空输入框
       this.title=''
     }

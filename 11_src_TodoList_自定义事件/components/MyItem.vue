@@ -1,3 +1,11 @@
+<!--
+ * @Author: kieranli 1010950547@qq.com
+ * @Date: 2022-08-19 16:13:47
+ * @LastEditors: kieranli 1010950547@qq.com
+ * @LastEditTime: 2022-08-19 16:47:20
+ * @FilePath: \vue_test1\src\components\MyItem.vue
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
 <template>
   <li>
     <label>
@@ -17,18 +25,20 @@
 <script>
     export default {
         name: "MyItem",
-        props:['todo','changeTodo','deleteTodo'],
+        props:['todo'],
         methods:{
           handleCheck(id){
             // console.log(id)
-            // 通知App勾选
-            this.changeTodo(id)
+
+            // 调用自定义事件,传值给父组件
+            this.$emit('changeTodo',id)
           },
           handleDelete(id){
             // console.log(id)
-            // 通知App删除
-            if(confirm('是否删除当前任务'))
-            this.deleteTodo(id)
+
+            // 调用自定义事件,传值给父组件
+            if(confirm('是否删除当前任务')) 
+            this.$emit('deleteTodo',id)
           }
         }
     };
