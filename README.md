@@ -1,8 +1,8 @@
 <!--
  * @Author: kieranli 1010950547@qq.com
  * @Date: 2022-08-15 09:14:51
- * @LastEditors: kieranli 1010950547@qq.com
- * @LastEditTime: 2022-08-19 11:55:56
+ * @LastEditors: kieranli 1010950547qq.com
+ * @LastEditTime: 2022-08-21 19:53:36
  * @FilePath: \vue_test1\README.md
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -20,6 +20,13 @@
     10、npm install -g cnpm --registry=https://registry.npm.taobao.org通过npm安装使用cnpm为淘宝镜像
     10、npm config get registry查看npm镜像配置，cnpm同理
 
+## package.json配置
+    1.关闭变量声明未使用的报错：
+        将"extends"中的"eslint:recommended"去掉
+
+## vue.config.json配置
+    1.关闭语法检测：
+        lintOnSave:false
 
 
 ## ref属性
@@ -151,5 +158,26 @@
     7.注意：
         通过this.$refs.xxx.$on('zidingyi',回调)绑定自定义事件时，回调要么配置在methods中，要么写成箭头函数，否则this指向为绑定ref的子组件实例对象
 
-## 
+## 全局事件总线（GlobalEventBus）
+    1.一种组件间通信的方式，适用于任意组件间通信。
+    2.安装全局事件总线：
+        new Vue({
+            ...
+            beforeCreate(){
+                Vue.prototype.$bus = this //安装全局事件总线，$bus就是当前应用的vue
+            },
+            ...
+        })
+    3.使用事件总线：
+        1).接收数据：A组件想接收数据，则在A组件中给$bus绑定事件，事件的回调留在A组件中。
+            methods:{
+                demo(data){
+                    ....
+                }
+            },
+            mounted(){
+                this.$bus.$on('xxxx',this.demo) //或者将回调写在这里，但要写成箭头函数
+            }
+        2.提供数据：this.$bus.$emit('xxxx',data)
+    4.最好在beforeDestroy钩子中，用$off去解绑<当前组件所用到的>事件，以免在组件销毁后事件仍然存留在$bus上占用内存
 
