@@ -1,8 +1,8 @@
 <!--
  * @Author: kieranli 1010950547@qq.com
  * @Date: 2022-08-15 09:14:51
- * @LastEditors: kieranli 1010950547@qq.com
- * @LastEditTime: 2022-08-23 16:31:04
+ * @LastEditors: kieranli 1010950547qq.com
+ * @LastEditTime: 2022-08-23 21:57:05
  * @FilePath: \vue_test1\README.md
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -18,7 +18,9 @@
     8、npm run build项目打包
     9、npm config set registry https://registry.npm.taobao.org设置npm镜像为淘宝镜像
     10、npm install -g cnpm --registry=https://registry.npm.taobao.org通过npm安装使用cnpm为淘宝镜像
-    10、npm config get registry查看npm镜像配置，cnpm同理
+    11、npm config get registry查看npm镜像配置，cnpm同理
+    12、安装第三方动画库如：npm install animate.css --save
+    13、安装axios：npm i axios
 
 ## package.json配置
     1.关闭变量声明未使用的报错：
@@ -234,3 +236,5 @@
                 <h1 v-show="isShow">你在做咩~</h1>
             </transition>
         3).备注:若有多个元素需要过度,则需要使用<transition-group>,且每个元素都要指定key值
+
+## 解决跨域问题
