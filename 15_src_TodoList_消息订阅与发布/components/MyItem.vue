@@ -1,8 +1,8 @@
 <!--
  * @Author: kieranli 1010950547@qq.com
  * @Date: 2022-08-19 16:13:47
- * @LastEditors: kieranli 1010950547qq.com
- * @LastEditTime: 2022-08-21 20:02:38
+ * @LastEditors: kieranli 1010950547@qq.com
+ * @LastEditTime: 2022-08-23 10:51:27
  * @FilePath: \vue_test1\src\components\MyItem.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -23,6 +23,7 @@
 </template>
 
 <script>
+    import pubsub from "pubsub-js";
     export default {
         name: "MyItem",
         props:['todo'],
@@ -38,7 +39,7 @@
 
             // 调用自定义事件,传值给父组件
             if(confirm('是否删除当前任务')) 
-            this.$bus.$emit('deleteTodo',id)
+            pubsub.publish('deleteTodo',id)
           }
         }
     };
