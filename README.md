@@ -1,8 +1,8 @@
 <!--
  * @Author: kieranli 1010950547@qq.com
  * @Date: 2022-08-15 09:14:51
- * @LastEditors: kieranli 1010950547qq.com
- * @LastEditTime: 2022-08-23 21:57:05
+ * @LastEditors: kieranli 1010950547@qq.com
+ * @LastEditTime: 2022-08-24 14:26:29
  * @FilePath: \vue_test1\README.md
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -21,7 +21,39 @@
     11、npm config get registry查看npm镜像配置，cnpm同理
     12、安装第三方动画库如：npm install animate.css --save
     13、安装axios：npm i axios
+    14、安装express:npm install express --save-dev
 
+## git
+    1.push：
+        1).git status   查看仓库状态
+        2).git add .    所有改动内容存到暂存区
+        3).git commit -m "注释" 将暂存区内容提交到本地仓库（带版本号）
+        4).git push origin master   上传本地当前分支代码到远程仓库master分支
+    2.pull:
+        若本地有改动，需要保留；
+            1).git stash/git stash save "注释"    将未提交的修改(工作区和暂存区)保存至堆栈，用于后续恢复当前工作目录
+            2).git stash list 查看当前stash中内容
+            3).git stash pop    将当前stash应用到当前分支工作目录并删除最近的stash
+            4).git stash apply/git stash apply stash@{1}    将当前stash/对应stash(stash@{1}为stash名)应用到当前分支工作目录，不删除stash
+            5).git stash drop stash@{1} 删除对应stash
+        若本地有改动，需要废弃：
+            1).git add 前，可以使用如下方法：
+                git checkout -- rainbow.txt start.txt   指定文件
+                git checkout -- *   所有文件
+                git checkout -- *.txt   指定后缀
+            2).git add 后git commit 前，可以使用如下方法将修改<从暂存区拿回工作区>后，再使用第一种方法：
+                git reset HEAD rainbow.txt start.txt 指定文件
+                git reset HEAD *   所有文件
+                git reset HEAD *.txt   指定后缀
+            3).git commit后，此时只能选择回退版本：详情看git版本回退
+        远程分支pull到本地：
+            1).git pull origin master
+    3.git版本回退
+        1).git log查看版本及版本号，英文状态按q退出查看
+        2).git reset --hard HEAD^   回退到上一个版本
+        3).git reset --hard commit_id(版本号)   回退指定版本
+
+        
 ## package.json配置
     1.关闭变量声明未使用的报错：
         将"extends"中的"eslint:recommended"去掉
@@ -237,4 +269,34 @@
             </transition>
         3).备注:若有多个元素需要过度,则需要使用<transition-group>,且每个元素都要指定key值
 
-## 解决跨域问题
+## Vue脚手架配置代理
+    方法一：
+        在vue.config.js中配置如下：
+            devServer:{
+                proxy:"http://localhost:5000"//请求的服务器地址
+            }
+        说明：
+            1.优点：配置简单，请求资源时，直接发给前端(8080)即可
+            2.缺点：不能配置多个代理，不能灵活的控制请求是否走代理。
+            3.工作方式：若按照上述配置代理，当请求了前端不存在的资源时，那么该请求会转发给服务器（有限匹配前端资源）
+    方法二：
+        在vue.config.js中配置如下：
+        devServer: {
+            proxy: {
+                '/kieran1': {
+                    target: 'http://localhost:5000',//不重写则请求服务器收到的路径也会带有前缀
+                    pathRewrite:{'^/kieran1':''}, //路径重写，正则匹配将/kieran字符串换位空字符串
+                    ws: true,//用于支持websocket
+                    changeOrigin: true //用于控制请求头中的host值，为true时与被请求服务器端口一致，为false则如实表明自己的端口号,vue中默认为值true,react默认false
+                },
+                '/kieran2': {
+                    target: 'http://localhost:5001',
+                    pathRewrite:{'^/kieran2':''},
+                    ws: true,
+                    changeOrigin: true
+                }
+            }
+        }
+        说明：
+            1.优点：可以配置多个代理，且可以灵活的控制请求是否走代理。
+            2.缺点：配置略微繁琐，请求资源时必须加前缀。
