@@ -1,14 +1,15 @@
 <!--
  * @Author: kieranli 1010950547@qq.com
  * @Date: 2022-08-15 09:14:51
- * @LastEditors: kieranli 1010950547qq.com
- * @LastEditTime: 2022-08-23 22:11:48
+ * @LastEditors: kieranli 1010950547@qq.com
+ * @LastEditTime: 2022-08-24 10:53:04
  * @FilePath: \vue_test1\src\App.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
 <template>
   <div id="root">
     <button @click="getStudents">点我获取学生信息</button>
+    <button @click="getCars">点我获取汽车信息</button>
   </div>
 </template>
 
@@ -38,9 +39,19 @@ export default {
     // 需要在vue.config.js里配置代理服务器
     // 注意：这种方法，若代理服务器没有，才会去发送请求，代理服务器根目录即在文件夹public下
     getStudents(){
-      axios.get('http://localhost:8080/students').then(
+      axios.get('http://localhost:8080/kieran1/students').then(
         response => {
           console.log('请求成功了！，学生数据为：',response.data)
+        },
+        error => {
+          console.log('请求失败了，失败原因为：',error.message)
+        }
+      )
+    },
+    getCars(){
+      axios.get('http://localhost:8080/kieran2/cars').then(
+        response => {
+          console.log('请求成功了！，汽车数据为：',response.data)
         },
         error => {
           console.log('请求失败了，失败原因为：',error.message)
