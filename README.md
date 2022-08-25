@@ -2,7 +2,7 @@
  * @Author: kieranli 1010950547@qq.com
  * @Date: 2022-08-15 09:14:51
  * @LastEditors: kieranli 1010950547@qq.com
- * @LastEditTime: 2022-08-24 14:26:29
+ * @LastEditTime: 2022-08-25 09:53:38
  * @FilePath: \vue_test1\README.md
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -22,6 +22,7 @@
     12、安装第三方动画库如：npm install animate.css --save
     13、安装axios：npm i axios
     14、安装express:npm install express --save-dev
+    15、安装vue-resource插件库npm i vue-resource
 
 ## git
     1.push：

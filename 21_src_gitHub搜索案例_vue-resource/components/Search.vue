@@ -1,8 +1,8 @@
 <!--
  * @Author: kieranli 1010950547qq.com
  * @Date: 2022-08-24 20:26:34
- * @LastEditors: kieranli 1010950547qq.com
- * @LastEditTime: 2022-08-24 23:22:56
+ * @LastEditors: kieranli 1010950547@qq.com
+ * @LastEditTime: 2022-08-25 10:01:52
  * @FilePath: \vue_test1\src\components\Search.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -22,7 +22,6 @@
 </template>
 
 <script>
-import axios from "axios";
 export default {
   name: "Search",
   data() {
@@ -41,7 +40,7 @@ export default {
       });
 
       //`....${}`为es模板字符串语法
-      axios.get(`https://api.github.com/search/users?q=${this.userName}`).then(
+      this.$http.get(`https://api.github.com/search/users?q=${this.userName}`).then(
         (response) => {
           console.log("请求成功了!");
           this.$bus.$emit("getUsersData", {
