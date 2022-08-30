@@ -1,0 +1,50 @@
+<!--
+ * @Author: kieranli 1010950547qq.com
+ * @Date: 2022-08-28 20:24:06
+ * @LastEditors: kieranli 1010950547qq.com
+ * @LastEditTime: 2022-08-28 20:43:55
+ * @FilePath: \vue_test1\00_ES6语法复习\1.扩展运算符.html
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AElet
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>1.扩展运算符</title>
+  </head>
+  <body>
+    <script type="text/javaScript">
+        // 一、扩展运算符在等号右边
+        // 表示将数组或对象中的数据解构打开
+        let obj1 = {
+            a:1,
+            b:2,
+            c:3
+        }
+        let obj2 = {
+            x:444,
+            y:555,
+            ...obj1
+        }
+        let arr1 = [1,2,3]
+        let arr2 = [222,333,...arr1]
+        let obj3 = {...obj2,...arr2}
+        console.log(obj2) //{a: 1,b: 2,c: 3,x: 444,y: 555}
+        console.log(arr2) //[222,333,1,2,3]
+        console.log(obj3) //{0:222,1:333,2:1,3:2,4:3,a:1,b:2,c:3,x:444,y:555}
+
+        // 二、扩展运算符在等号左边
+        // 表示将剩余的数据打包到一个新的数组中，注意点：只能写在最后
+        let [a,...b]=[1,2,3,4,5]
+        console.log(a,b) // a---1,b----[2,3,4,5]
+
+        // 三、可在函数形参的应用
+        function F1(m,...n){
+            console.log('@m:',m,'@n:',n)
+        }
+        var test = new F1(1,2,3,4,5) //@m: 1 @n: [2,3,4,5]
+    </script>
+  </body>
+</html>

@@ -1,8 +1,8 @@
 <!--
  * @Author: kieranli 1010950547@qq.com
  * @Date: 2022-08-15 09:14:51
- * @LastEditors: kieranli 1010950547@qq.com
- * @LastEditTime: 2022-08-25 09:53:38
+ * @LastEditors: kieranli 1010950547qq.com
+ * @LastEditTime: 2022-08-30 21:39:37
  * @FilePath: \vue_test1\README.md
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -23,7 +23,8 @@
     13、安装axios：npm i axios
     14、安装express:npm install express --save-dev
     15、安装vue-resource插件库npm i vue-resource
-
+    15、安装vuex:npm i vuex
+        注意：现在安装vue时npm i vue默认安装的都是vue3,默认安装vuex变成了vuex4版本，而vue3只能用vuex4,vue2只能用vuex3所以安装vuex时需要加上@对应版本号
 ## git
     1.push：
         1).git status   查看仓库状态
@@ -301,3 +302,124 @@
         说明：
             1.优点：可以配置多个代理，且可以灵活的控制请求是否走代理。
             2.缺点：配置略微繁琐，请求资源时必须加前缀。
+
+## 搭建vuex环境
+    1.创建文件：src/store/index.js
+        index.js:
+            <!-- 引入Vue核心库 -->
+            import Vue from 'vue'
+            <!-- 引入Vuex -->
+            import Vuex from 'vuex'
+            <!-- 应用Vuex插件 -->
+            Vue.use(Vuex)
+
+            <!-- 准备actions,用于响应组件中用户的动作 -->
+            const actions = {}
+            <!-- 准备mutations,用于处理state中的数据 -->
+            const mutations = {}
+            <!-- 准备state对象，保存具体的数据 -->
+            const state = {}
+
+            <!-- 创建并暴露store -->
+            export default new Vuex.Store({
+                actions,
+                mutations,
+                state
+            })
+    2.在main.js中创建vm时传入store配置项
+        ......
+        <!-- 引入store -->
+        import store from './store'
+        ......
+
+        <!-- 创建vm -->
+        new Vue=({
+            ...
+            store,
+            ...
+        })
+
+## Vuex的基本使用
+    1.初始化数据、配置actions、配置mutaions，操作文件store.js
+    <!-- 引入Vue核心库 -->
+    import Vue from 'vue'
+    <!-- 引入Vuex -->
+    import Vuex from 'vuex'
+    <!-- 引用Vuex -->
+    Vue.use(Vuex)
+
+    const actions = {
+        add(context,value){
+            context.commit('ADD',value)
+        }
+    },
+    const mutations = {
+        ADD(state,value){
+            state.sum += value
+        }
+    },
+
+    <!-- 初始化数据 -->
+    const state = {
+        sum:0
+    }
+
+    <!-- 创建并暴露store -->
+    export default new Vuex.Store({
+        acitons,
+        mutations,
+        state
+    })
+
+    2.组件中读取vuex中的数据：模板中：$store.state.sum 非模板中：this.$store.state.sum
+    3.组件中修改vuex中的数据：$store.dispatch('actions中的方法名',value)或$store.commit('mutations中的方法名',数据)
+    备注：若没有网络请求或其他复杂业务逻辑，组件中也可以越过actions,即不写dispatch,直接编写commit
+
+## VueX中的getters配置项
+    1.概念：当state中的数据需要经过加工后再使用时，可以使用getters加工。
+    2.在store.js中追加getters配置
+    ......
+    const getters = {
+        bigSum(state){
+            return state.sum*10
+        }
+    }
+
+    <!-- 创建并暴露store -->
+    export default new Vuex.Store({
+        ......
+        getters
+    })
+    3.组件中读取数据：$store.getters.bigSum
+
+## 四个map方法的使用
+    1.mapState方法：用于帮助我们映射state中的数据为计算属性
+        computed:{
+            <!-- 借助mapState生成，对象写法 -->
+            ...mapState({sum:'sum',school:'school',subject:'subject'})
+            <!-- 借助mapState生成计算属性，数组写法，两边名需要一致 -->
+            ...mapState(['sum','school','subject'])
+        }
+    2.mapGetters方法：用于帮助我们映射getters中的数据为计算属性
+        computed:{
+            <!-- 借助mapGetters生成，对象写法 -->
+            ...mapGetters({bigSum:'bigSum'})
+            <!-- 借助mapGetters生成计算属性,数组写法，两边名需要一致-->
+            ...mapGetters(['bigSum'])
+        }
+    3.mapActions方法：用于帮助我们生成与actions对话的方法，即：包含$store.dispatch(xxx)的函数
+        methods:{
+            <!-- 靠mapActions生成,对象写法 -->
+            ...mapActions({increaseOdd:"addOdd",increaseWait:"addWait"}),
+            <!-- 靠mapActions生成,数组写法 -->
+            ...mapActions(["addOdd","addWait"]),
+        }
+    4.mapMutations方法：用户帮助我们生成与mutations对话的方法，即：包含$store.commit(xxx)的函数
+        methods:{
+            <!-- 靠mapMutations生成,对象写法 -->
+            ...mapMutations({ increase: "ADD", decrease: "REDUCE" }),
+            <!-- 靠mapMutations生成,数组写法 -->
+            ...mapMutations(["ADD","REDUCE"]),
+        }
+
+    备注：mapActions与mapMutations使用时，若需要传递参数，需要在模板中绑定事件时传递参数，否则参数是事件对象。
