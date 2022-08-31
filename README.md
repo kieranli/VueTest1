@@ -2,7 +2,7 @@
  * @Author: kieranli 1010950547@qq.com
  * @Date: 2022-08-15 09:14:51
  * @LastEditors: kieranli 1010950547qq.com
- * @LastEditTime: 2022-08-30 21:39:37
+ * @LastEditTime: 2022-08-31 22:50:57
  * @FilePath: \vue_test1\README.md
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -423,3 +423,58 @@
         }
 
     备注：mapActions与mapMutations使用时，若需要传递参数，需要在模板中绑定事件时传递参数，否则参数是事件对象。
+
+## Vuex模块化及namespace命名空间
+    1.目的：让代码更好维护，让多种数据分类更加明确。
+    2.修改store.js
+        const countAbout = {
+            namespaced:true,//开启命名空间
+            state:{...},
+            actions:{...},
+            mutations:{...},
+            getters:{...},
+        }
+
+        const personAbout = {
+            namespaced:true,//开启命名空间
+            state:{...},
+            actions:{...},
+            mutations:{...},
+            getters:{...},
+        }
+
+        export default new Vuex.Store({
+            modules:{
+                countAbout,
+                personAbout
+            }
+        })
+
+    3.开启命名空间后，组件中读取state数据：
+        <!-- 方式一，自己直接读取 -->
+        this.$store.state.personAbout.xxx
+        <!-- 方式二，借助mapState读取 -->
+        ...mapState('personAbout',{xxx:'xxx'})
+        或
+        ...mapState('personAbout',['xxx'])
+    4.开启命名空间后，组件中读取getters数据：
+        <!-- 方式一，自己直接读取 -->
+        this.$store.state.getters['personAbout/xxx']
+        <!-- 方式二，借助mapGetters读取 -->
+        ...mapGetters('personAbout',{xxx:'xxx'})
+        或
+        ...mapGetters('personAbout',['xxx'])
+    5.开启命名空间后，组件中调用dispatch：
+        <!-- 方式一，自己直接调用 -->
+        this.$store.dispatch('personAbout/xxx',value))
+        <!-- 方式二，借助mapActions调用 -->
+        ...mapActions('personAbout',{xxx:'xxx'})
+        或
+        ...mapActions('personAbout',['xxx'])
+    6.开启命名空间后，组件中调用commit：
+        <!-- 方式一，自己直接调用 -->
+        this.$store.commit('personAbout/xxx',value))
+        <!-- 方式二，借助mapMutations调用 -->
+        ...mapMutations('personAbout',{xxx:'xxx'})
+        或
+        ...mapMutations('personAbout',['xxx'])
